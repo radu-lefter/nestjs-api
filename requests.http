@@ -1,4 +1,10 @@
 #Auth routes
 
-POST http://localhost:3000/signin
+POST http://localhost:3000/auth/signup
 Content-Type: application/json
+
+{
+        "email": "radu@gmail.com",
+        "password": "123"
+}
+
