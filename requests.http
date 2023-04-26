@@ -22,3 +22,9 @@ Content-Type: application/json
         "password": "123"
 }
 
+###
+
+#Get current user
+
+GET http://localhost:3000/users/me
+Content-Type: application/json
