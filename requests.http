@@ -1,6 +1,20 @@
 #Auth routes
 
+#Sign up
+
 POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+        "email": "radu@gmail.com",
+        "password": "123"
+}
+
+###
+
+#Sign in
+
+POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
