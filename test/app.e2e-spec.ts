@@ -1,7 +1,4 @@
-import {
-  INestApplication,
-  ValidationPipe
-} from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
@@ -9,16 +6,14 @@ import * as pactum from 'pactum';
 import { AuthDto } from '../src/auth/dto';
 
 describe('App e2e', () => {
-
   let app: INestApplication;
   let prisma: PrismaService;
 
   beforeAll(async () => {
-  
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
-    
+
     app = moduleRef.createNestApplication();
     app.useGlobalPipes(
       new ValidationPipe({
@@ -31,29 +26,20 @@ describe('App e2e', () => {
 
     prisma = app.get(PrismaService);
     await prisma.cleanDb();
-    pactum.request.setBaseUrl(
-      'http://localhost:3333',
-    );
+    pactum.request.setBaseUrl('http://localhost:3333');
   });
 
-    afterAll(() => {
-      app.close();
-    });
-
-
-  it.todo('should pass');
-
+  afterAll(() => {
+    app.close();
   });
 
   describe('Auth', () => {
-
     const dto: AuthDto = {
       email: 'radu@gmail.com',
       password: '123',
     };
-    
-    describe('Signup', () => {
 
+    describe('Signup', () => {
       it('should throw if email empty', () => {
         return pactum
           .spec()
@@ -75,10 +61,7 @@ describe('App e2e', () => {
       });
 
       it('should throw if no body provided', () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .expectStatus(400);
+        return pactum.spec().post('/auth/signup').expectStatus(400);
       });
 
       it('should signup', () => {
@@ -88,28 +71,29 @@ describe('App e2e', () => {
           .withBody(dto)
           .expectStatus(201);
       });
-      
     });
 
     describe('Signin', () => {});
+
   });
 
-  describe('User', () => {
-    
-    describe('Get me', () => {});
+  
+});
 
-    describe('Edit user', () => {});
-  });
+// describe('User', () => {
+//   describe('Get me', () => {});
 
-  describe('Bookmarks', () => {
-    
-    describe('Create bookmark', () => {});
+//   describe('Edit user', () => {});
+// });
 
-    describe('Get bookmarks', () => {});
+// describe('Bookmarks', () => {
+//   describe('Create bookmark', () => {});
 
-    describe('Get bookmark by id', () => {});
+//   describe('Get bookmarks', () => {});
 
-    describe('Edit bookmark', () => {});
+//   describe('Get bookmark by id', () => {});
 
-    describe('Delete bookmark', () => {});
-  });
+//   describe('Edit bookmark', () => {});
+
+//   describe('Delete bookmark', () => {});
+// });
