@@ -193,7 +193,19 @@ describe('App e2e', () => {
       });
     });
   
-    describe('Get bookmark by id', () => {});
+    describe('Get bookmark by id', () => {
+      it('should get bookmark by id', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBodyContains('$S{bookmarkId}');
+      });
+    });
   
     describe('Edit bookmark', () => {});
   

@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Body, Post, Get } from '@nestjs/common';
+import { Controller, UseGuards, Body, Post, Get, Param, ParseIntPipe, } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { JwtGuard } from '../auth/guard';
 import { GetUser } from '../auth/decorator';
@@ -26,6 +26,17 @@ export class BookmarkController {
   getBookmarks(@GetUser('id') userId: number) {
     return this.bookmarkService.getBookmarks(
       userId,
+    );
+  }
+
+  @Get(':id')
+  getBookmarkById(
+    @GetUser('id') userId: number,
+    @Param('id', ParseIntPipe) bookmarkId: number,
+  ) {
+    return this.bookmarkService.getBookmarkById(
+      userId,
+      bookmarkId,
     );
   }
 
