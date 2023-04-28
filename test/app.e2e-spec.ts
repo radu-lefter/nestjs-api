@@ -148,6 +148,20 @@ describe('App e2e', () => {
   });
 
   describe('Bookmarks', () => {
+
+    describe('Get empty bookmarks', () => {
+      it('should get bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
+
     describe('Create bookmark', () => {
       const dto: CreateBookmarkDto = {
         title: 'First Bookmark',
@@ -166,7 +180,18 @@ describe('App e2e', () => {
       });
     });
   
-    describe('Get bookmarks', () => {});
+    describe('Get bookmarks', () => {
+      it('should get bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectJsonLength(1);
+      });
+    });
   
     describe('Get bookmark by id', () => {});
   
