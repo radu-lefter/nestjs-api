@@ -110,23 +110,37 @@ describe('App e2e', () => {
 
   });
 
+  describe('User', () => {
+    describe('Get me', () => {
+      it('should get current user', () => {
+        return pactum
+          .spec()
+          .get('/users/me')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200);
+      });
+    });
+  
+    describe('Edit user', () => {});
+  });
+
+  describe('Bookmarks', () => {
+    describe('Create bookmark', () => {});
+  
+    describe('Get bookmarks', () => {});
+  
+    describe('Get bookmark by id', () => {});
+  
+    describe('Edit bookmark', () => {});
+  
+    describe('Delete bookmark', () => {});
+  });
+
   
 });
 
-// describe('User', () => {
-//   describe('Get me', () => {});
 
-//   describe('Edit user', () => {});
-// });
 
-// describe('Bookmarks', () => {
-//   describe('Create bookmark', () => {});
 
-//   describe('Get bookmarks', () => {});
-
-//   describe('Get bookmark by id', () => {});
-
-//   describe('Edit bookmark', () => {});
-
-//   describe('Delete bookmark', () => {});
-// });
