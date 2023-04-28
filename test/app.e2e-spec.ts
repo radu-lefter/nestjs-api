@@ -7,6 +7,7 @@ import { AuthDto } from '../src/auth/dto';
 import { EditUserDto } from '../src/user/dto';
 import {
   CreateBookmarkDto,
+  EditBookmarkDto
 } from '../src/bookmark/dto';
 
 describe('App e2e', () => {
@@ -207,7 +208,27 @@ describe('App e2e', () => {
       });
     });
   
-    describe('Edit bookmark', () => {});
+    describe('Edit bookmark', () => {
+      const dto: EditBookmarkDto = {
+        title:
+          'Levan Polka',
+        description:
+          'Enjoy this beautiful Finnish song',
+      };
+      it('should edit bookmark', () => {
+        return pactum
+          .spec()
+          .patch('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody(dto)
+          .expectStatus(200)
+          .expectBodyContains(dto.title)
+          .expectBodyContains(dto.description);
+      });
+    });
   
     describe('Delete bookmark', () => {});
   });
